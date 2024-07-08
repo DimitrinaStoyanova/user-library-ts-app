@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import navigationSlice from './navigationSlice';
 import userApi, { userApiMiddleware } from './api/userApi';
+import userSlice from './userSlice';
 
 const persistConfig = {
   key: 'root',
@@ -16,7 +17,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
-  navigationSlice: navigationSlice?.reducer
+  navigationSlice: navigationSlice?.reducer,
+  userSlice: userSlice?.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

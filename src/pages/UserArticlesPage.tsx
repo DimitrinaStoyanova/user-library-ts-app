@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import map from "lodash/map";
 import { type UserArticle, PopupMode } from "../types/user";
-import { useDeleteUserArticleMutation, useGetUserArticle } from "../store/api/userApi";
+import {
+  useDeleteUserArticleMutation,
+  useGetUserArticle,
+} from "../store/api/userApi";
 import TableHeader from "../components/user/TableHeader";
 import UserArticlePopup from "../components/user/UserArticlePopup";
 import UserArticleForm from "../components/user/UserArticleForm";
@@ -10,7 +13,9 @@ import UserArticleForm from "../components/user/UserArticleForm";
 const UserDetailsPage = () => {
   const { id } = useParams();
   const { data } = useGetUserArticle(Number(id));
-  const [selectedUserArticle, setSelectedUserArticle] = useState<UserArticle|undefined>();
+  const [selectedUserArticle, setSelectedUserArticle] = useState<
+    UserArticle | undefined
+  >();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showUserPopup, setUserPopup] = useState<boolean>(false);
 
@@ -19,19 +24,19 @@ const UserDetailsPage = () => {
   const handleTogglePopupState = (mode: PopupMode) => {
     if (mode === "DELETE") {
       setShowPopup((prev) => {
-        if(prev) {
+        if (prev) {
           setSelectedUserArticle(undefined);
-          return !prev
+          return !prev;
         }
-        return !prev
+        return !prev;
       });
     } else if (mode === "UPDATE" || mode === "CREATE") {
       setUserPopup((prev) => {
-        if(prev) {
+        if (prev) {
           setSelectedUserArticle(undefined);
-          return !prev
+          return !prev;
         }
-        return !prev
+        return !prev;
       });
     }
   };
@@ -105,11 +110,16 @@ const UserDetailsPage = () => {
       {/* Create or edit User */}
       <UserArticlePopup
         show={showUserPopup}
-        onHide={() => {console.log('d1d');
-          handleTogglePopupState("UPDATE")}}
+        onHide={() => handleTogglePopupState("UPDATE")}
         size="md"
         title={selectedUserArticle ? "Edit User Article" : "Add User Article"}
-        body={<UserArticleForm initialData={selectedUserArticle} userId={Number(id)} toggleFormPopup={handleTogglePopupState}/>}
+        body={
+          <UserArticleForm
+            initialData={selectedUserArticle}
+            userId={Number(id)}
+            toggleFormPopup={handleTogglePopupState}
+          />
+        }
         showFooter={false}
       />
 
